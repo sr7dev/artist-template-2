@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import { socialItems } from '../../constants/mock';
+import {socialItems} from "../../constants/mock";
 import $ from "jquery";
 import navigation from "../../_nav";
 import {AppSidebarToggler} from "@coreui/react";
@@ -222,15 +222,13 @@ class Dashboard extends Component {
               <AppSidebarToggler className="ml-auto menu-toggler" mobile />
             </div>
             <div className="social-icons">
-              {
-                socialItems.map((item, index) => {
-                  return (
-                    <a href={item.url} key={index}>
-                      <img className="social-icon" src={item.img_url} alt="" />
-                    </a>      
-                  )
-                })
-              }
+              {socialItems.map((item, index) => {
+                return (
+                  <a href={item.url} key={index}>
+                    <img className="social-icon" src={item.img_url} alt="" />
+                  </a>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -240,20 +238,25 @@ class Dashboard extends Component {
             <Row>
               <Col md="7" sm="12">
                 <div>
-                  Beginning in Austin, TX, in the heart of their middle school days, David Kapsner (lead vocals/guitar/piano), Michael Jekot (lead guitar/vocals), and Tyler Rush (bass/vocals) came together to transcend the barrier of blues-rock into funky psych-soul through their various music ventures. Bringing the audacious and wonderfully talented Tim Durand (drums/vocals) into the picture has
+                  Beginning in Austin, TX, in the heart of their middle school days, David
+                  Kapsner (lead vocals/guitar/piano), Michael Jekot (lead guitar/vocals),
+                  and Tyler Rush (bass/vocals) came together to transcend the barrier of
+                  blues-rock into funky psych-soul through their various music ventures.
+                  Bringing the audacious and wonderfully talented Tim Durand
+                  (drums/vocals) into the picture has
                 </div>
                 <Button color="dark" outline className="btn-pill read-more">
                   Read More
                 </Button>
               </Col>
-      
+
               <Col md="5" sm="12">
                 <img src={about} alt="" />
               </Col>
             </Row>
           </Container>
         </section>
-      
+
         <section id="tour">
           <Container>
             <h2>Tour</h2>
@@ -342,24 +345,23 @@ class Dashboard extends Component {
           <Container>
             <h2>News</h2>
             <Row>
-            {data.newsItems.map((item, index) => {
-              return (
-                <Col md="6" sm="12" className="news-item" key={index}>
-                  <img src={item.img} alt="" />
-                  <div className="title">{item.title}</div>
-                  <div className="content">{item.content}</div>
-                  <div className="read-more">
-                    <Button color="dark" outline className="btn-pill read-more">
-                      Read More
-                    </Button>
-                  </div>
-                </Col>
-              );
-            })}
+              {data.newsItems.map((item, index) => {
+                return (
+                  <Col md="6" sm="12" className="news-item" key={index}>
+                    <img src={item.img} alt="" />
+                    <div className="title">{item.title}</div>
+                    <div className="content">{item.content}</div>
+                    <div className="read-more">
+                      <Button color="dark" outline className="btn-pill read-more">
+                        Read More
+                      </Button>
+                    </div>
+                  </Col>
+                );
+              })}
             </Row>
           </Container>
         </section>
-        
       </div>
     );
   }

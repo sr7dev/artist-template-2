@@ -11,14 +11,13 @@ const propTypes = {
 const defaultProps = {};
 
 function DefaultHeader() {
-
   return (
     <React.Fragment>
       <AppNavbarBrand
         full={{src: logo, width: 30, height: 45, alt: "BISHOPS Logo"}}
         minimized={{src: logo, width: 30, height: 45, alt: "BISHOPS Logo"}}
       />
-      <AppSidebarToggler className="ml-auto menu-toggler" mobile >
+      <AppSidebarToggler className="ml-auto menu-toggler" mobile>
         <i className="fa fa-bars"></i>
       </AppSidebarToggler>
     </React.Fragment>

@@ -20,13 +20,13 @@ export const newsItems = [
     img: news_1,
     title: "The Mammoths - Austin Music Foundation Artist of the Month",
     content:
-      "\"The Mammoths prove that rock ‘n’ roll is far from dead - in fact, it’s thriving within each member of this impassioned rock band. Their fusion of psychedelia and blues into a nod-worthy set of ",
+      '"The Mammoths prove that rock ‘n’ roll is far from dead - in fact, it’s thriving within each member of this impassioned rock band. Their fusion of psychedelia and blues into a nod-worthy set of ',
   },
   {
     img: news_2,
     title: "Live Series: The Mammoths at Mean Eyed Cat",
     content:
-      "\"The Mammoths are known for their “fiery unapologetic live shows” (a quote from AMF’s Alex Vallejo) so it’s no surprise that they delivered the liveliest performance we’ve seen on the Mean Eyed Cat stage.\"",
+      '"The Mammoths are known for their “fiery unapologetic live shows” (a quote from AMF’s Alex Vallejo) so it’s no surprise that they delivered the liveliest performance we’ve seen on the Mean Eyed Cat stage."',
   },
 ];
 
@@ -119,40 +119,40 @@ export const merchItems = [
 ];
 
 export const socialItems = [
-  {  
+  {
     img_url: spotify,
-    url: "https://open.spotify.com/artist/2deuprRz9fqMiBfTV6CAo5"
+    url: "https://open.spotify.com/artist/2deuprRz9fqMiBfTV6CAo5",
   },
-  {  
+  {
     img_url: music,
-    url: "https://music.apple.com/ca/artist/the-bishops/1086826479"
+    url: "https://music.apple.com/ca/artist/the-bishops/1086826479",
   },
-  {  
+  {
     img_url: youtube,
-    url: "https://www.youtube.com/channel/UCd1yaBcDXiBEpDBwnjvVebw"
+    url: "https://www.youtube.com/channel/UCd1yaBcDXiBEpDBwnjvVebw",
   },
-  {  
+  {
     img_url: sound_cloud,
-    url: "https://soundcloud.com/the_bishops"
+    url: "https://soundcloud.com/the_bishops",
   },
-  {  
+  {
     img_url: facebook,
-    url: "https://www.facebook.com/thebishopsmusic/"
+    url: "https://www.facebook.com/thebishopsmusic/",
   },
-  {  
+  {
     img_url: twitter,
-    url: "https://twitter.com/thebishopsatx?lang=en"
+    url: "https://twitter.com/thebishopsatx?lang=en",
   },
-  {  
+  {
     img_url: instagram,
-    url: "https://www.instagram.com/thebishopsmusic/"
+    url: "https://www.instagram.com/thebishopsmusic/",
   },
-  {  
+  {
     img_url: songkick,
-    url: "https://www.songkick.com/artists/9835239-bishops-music"
+    url: "https://www.songkick.com/artists/9835239-bishops-music",
   },
-  {  
+  {
     img_url: bandsintown,
-    url: "https://www.bandsintown.com/en/a/13269757-the-bishops"
-  }
-]
+    url: "https://www.bandsintown.com/en/a/13269757-the-bishops",
+  },
+];
