@@ -1,0 +1,527 @@
+// Here you can add other styles
+@font-face {
+  font-family: "AvenirNext";
+  font-weight: 500;
+  src: url('../assets/fonts/AvenirNextLTPro-Bold.otf') format("opentype");
+}
+@font-face {
+  font-family: "AvenirNext";
+  font-weight: bold;
+  src: url('../assets/fonts/AvenirNextLTPro-MediumCn.otf') format("opentype"),
+}
+@font-face {
+  font-family: "AvenirNext";
+  font-weight: normal;
+  src: url('../assets/fonts/AvenirNextLTPro-Regular.otf') format("opentype"),
+}
+
+body {
+  font-family: AvenirNext;
+  font-weight: normal;
+  font-size: 30px;
+  
+  @media (max-width: 1119.98px) {
+    font-size: 25px;
+  }
+  @media (max-width: 859.98px) {
+    font-size: 20px;
+  }
+  @media (max-width: 479.98px) {
+    font-size: 15px;
+  }
+}
+
+.white-theme {
+  background-color: $body-color !important;
+  color: $body-bg !important;
+}
+h2, .h2 {
+  font-size: 1.1em;
+  font-weight: normal;
+  letter-spacing: 0.25em;
+  text-align: center;
+  margin-bottom: 2em;
+  text-transform: uppercase;
+}
+section {
+  width: 100%;
+  padding: 2em 0;  
+  border-top: solid 0.2px #979797;
+}
+::-webkit-input-placeholder { /* Edge */
+  color: #777777;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #777777;
+}
+::placeholder {
+  color: #777777;
+}
+.form-control {
+  background-color: #979797;
+  font-size: 0.9em;
+  font-weight: normal;
+}
+.btn {
+  font-size: 0.84em;
+  font-weight: normal;
+  padding: 0.5em 1em;
+}
+.container {
+  max-width: 1440px;
+}
+
+.mr-70px {
+  margin-right: 2em;
+}
+.mt-30px {
+  margin-top: 1em;
+}
+.mb-60px {
+  margin-bottom: 2em;
+}
+.mb-70px {
+  margin-bottom: 2em;
+}
+.dark-theme-logo {
+  display: none !important;
+}
+.white-theme-logo {
+  display: inline-flex !important;
+}
+
+.btn {
+  font-size: 0.63em;
+  letter-spacing: 4px;
+  text-align: center;
+  color: $body-color;
+  @media (max-width: 479.98px) {
+    padding: 12px 15px;
+  }
+}
+label {
+  margin-top: 0.6em;
+}
+.player-wrapper {
+  width: auto; // Reset width
+  height: auto; // Reset height
+}
+.react-player {
+  padding-top: 56.25%; // Percentage ratio for 16:9
+  position: relative; // Set to relative
+}
+
+.react-player > div {
+  top: 0;
+  left: 0;
+  position: absolute; // Scaling will occur since parent is relative now
+}
+.mobile-menu {
+  display: none;
+  @media (max-width:659.88px) {
+    display: flex;
+  }
+}
+.app-header {
+  background-color: $body-bg;
+  border-bottom: solid 0.2px #979797;
+  box-shadow: 0 4px 13px -3px rgba(0, 0, 0, 0.10196);
+  border-bottom: none;
+  @media (max-width: 991.98px) {
+    height: 66px;
+  }
+  .navbar-brand {
+    left: 0;
+    margin-left: 0;
+    width:50px;
+    height: 100%;
+  }
+  
+  .navbar-toggler {
+    i {
+      color: #d7cc96;
+      font-size: 1.5em;
+    }
+  }
+  .header-nav {
+    @media (max-width:659.88px) {
+      display: none;
+    }
+  }
+  .menu-toggler {
+    display: none;
+    @media (max-width:659.88px) {
+      display: inline-block;
+    }
+  }
+}
+.header-fixed {
+  .app-body {
+    margin-top: 0 !important;
+    @media (max-width:659.88px) {
+      margin-top: 66px !important;
+    }
+  }
+}
+#home {
+  padding-top: 1px;
+  padding-bottom: 0;
+  position: relative;
+  .hero {
+    text-align: center;
+    img {
+      width: 100%;
+      max-width: 1440px;
+    }
+  }
+  .navigation {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(#313131, 0.45), rgba(#000000, 0.45));
+    text-align: center;
+    
+    @media (max-width:659.88px) {
+      position: inherit;
+      background: unset;
+    }
+    .nav-bar {
+      max-width: 1440px;
+      padding: 1.3em 0;
+      border-bottom: solid 0.2px #979797;
+      border-bottom: none;
+      
+      @media (max-width: 991.98px) {
+        height: 66px;
+      }
+    
+      @media (max-width:659.88px) {
+        display: none;
+      }
+
+      .navbar-nav {
+        flex-direction: row;
+        width: 80%;
+        justify-content: space-between;
+        .nav-item {
+          padding: 0 0.3em;      
+          .nav-link-span {
+            font-size: 0.6em;
+            font-weight: normal;
+            letter-spacing: 0.15em;
+            color: $body-color;
+          }
+          .white-theme {
+            color: $body-bg;
+          }
+    
+          &:hover {
+            cursor: pointer;
+            .nav-link-span{
+              color: rgb(12, 216, 12);
+            }
+          }
+        }
+        
+        .nav-item.active {
+          .nav-link {
+            color: green;
+          }
+        }
+      }
+      .navbar-brand {
+        @media(max-width: 991.98px) {
+          position: unset;
+          margin-left: 0px;
+          width: 81px;
+          // height: 38px;
+          img {
+            width: 81px;
+            height: 38px;
+          }
+        }
+        @media (max-width:659.88px) {
+          position: absolute;
+          margin-left: -77.5px;
+        }
+      }
+      .menu-toggler {
+        display: none;
+        @media (max-width:659.88px) {
+          display: inline-block;
+        }
+      }
+    }
+    .social-icons {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 1.3em;
+  
+      @media (max-width:659.88px) {
+        padding-top: 1.3em;
+      }
+      .social-icon {
+        width: 49px;
+        height: 49px;
+        margin: 10px 20px;
+        @media (max-width: 479.98px) {
+          width: 30px;
+          height: 30px;
+          margin: 10px 10px;
+        }
+      }
+    }
+  }
+}
+#news {
+  .news-item {
+    margin-bottom: 2em;
+    text-align: center;
+
+
+    .text-center {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .content {
+      font-size: 0.7em;
+      letter-spacing: 0.25em;
+      text-align: center;
+      margin-bottom: 0.8em;
+    }
+    .title {
+      font-size: 1em;
+      letter-spacing: 0.22em;
+      text-align: center;
+      margin-bottom: 0.8em;
+    }
+    
+    img {
+      width: 100%;
+      margin-bottom: 1em;  
+    }
+    .read-more {
+      text-align: center;
+    }
+  }
+}
+
+#tour {
+  .tour-item {
+    margin-bottom: 1.5em;
+    align-items: center;
+    @media (max-width: 479.98px) {
+      margin-bottom: 1em;
+    }
+    .date {
+      text-align: center;
+      font-size: 1.1em;
+      letter-spacing: 0.22em;
+      .day {
+        font-size: 1.7em;
+        font-weight: normal;
+        letter-spacing: 0.22em;
+      }
+    }
+    .title {
+      font-size: 1em;
+      letter-spacing: 0.22em;
+      margin-bottom: 0.7em;
+    }
+    .content {
+      font-size: 0.6em;
+      letter-spacing: 0.2em;
+    }
+    .btn {
+      @media (max-width: 479.98px) {
+        font-size: 5.5px;
+        letter-spacing: 1.29px;
+        padding: 7px 10px;
+      }
+    }
+    .get-ticket {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      @media (max-width: 479.98px) {
+        padding: 0 0;
+      }
+    }
+  }
+}
+#music {
+  h2 {
+    margin-bottom: 0;
+    height: unset;
+    
+    @media (max-width: 479.98px) {
+      margin-bottom: 2em;
+    }
+  }
+  .music-items{
+    position: relative;
+    padding: 0 10%;
+    .music-item {
+      img {
+        width: 100%;
+        margin-top: 3em;
+        margin-bottom: 1.5em;
+        
+        @media (max-width: 479.98px) {
+          margin-top: 0;
+        }
+      }
+      .title {
+        font-size: 1em;
+        font-weight: normal;
+        letter-spacing: 0.22em;
+        text-align: center;
+        @media (max-width: 479.98px) {
+          margin-bottom: 1.5em;
+        }
+      }
+    }
+  }
+}
+#videos {
+  h2 {
+    margin-bottom: 0;
+    height: unset;
+  }
+  .carousel {
+    margin-top: -1.5em;
+    
+    @media (max-width: 479.98px) {
+      margin-top: 0;
+    }
+  }
+  .video-items{
+    padding: 0 10%;
+    .video-item {
+      .title {
+        font-size: 1em;
+        font-weight: normal;
+        letter-spacing: 0.22em;
+        text-align: center;
+        margin: 1.5em 0;
+      }
+      .player-wrapper {
+        margin-top: 5em;
+        @media (max-width: 479.98px) {
+          margin-top: 2em;
+        }
+      }
+    }
+  }
+}
+
+#merch {
+  .merch-items{
+    .merch-item {
+      padding: 0 10%;
+      @media (max-width: 479.98px) {
+        padding: 0 5%;
+      }
+      img {
+        width: 100%;
+        margin-bottom: 1em;
+      }
+      .title {
+        font-size: 1em;
+        font-weight: normal;
+        letter-spacing: 0.22em;
+        text-align: center;
+        margin-bottom: 0.7em;
+      }
+      .price {
+        font-size: 1.2em;
+        font-weight: normal;
+        letter-spacing: 0.27em;
+        text-align: center;
+        margin-bottom: 1em;
+      }
+    }
+  }
+}
+#about {
+  .row {
+    @media (max-width: 569.98px) {
+      flex-direction: column-reverse;
+    }
+    div {
+      font-size: 0.9em;
+      padding: 0 3%;
+      letter-spacing: 0.22em;
+      @media (max-width: 767.98px) {
+        text-align: center;
+      }
+    }
+    img{
+      width: 100%;
+      margin-bottom: 1em;
+      @media (max-width: 479.98px) {
+        width: 90%;
+      }
+    }
+    .read-more {
+      margin: 1em 0;
+    }
+  }
+}
+
+.app-footer {
+  background: $body-bg;
+  border-top: none;
+  padding: 0 0;
+  .row {
+    margin-bottom: 1.2em;
+    @media (max-width: 479.98px) {
+      margin-bottom: 1em;
+    }
+  }
+  .contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5em;
+    @media (max-width: 569.98px) {
+      flex-direction: column;
+      // align-items: flex-start;
+    }
+  }
+  .contact-category {
+    width: 100%;
+    font-size: .9em;
+    font-weight: normal;
+    justify-content: flex-end;
+    @media (max-width: 569.98px) {
+      align-items: flex-end;
+      justify-content: center;
+    }
+  }
+  .email-addr {
+    width: 100%;
+    font-weight: normal;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .app-info {
+    font-size: 0.7em;
+    letter-spacing: 0.15em;
+    text-align: center;
+  }
+  .join-btn {
+    font-size: 0.84em;
+    min-width: 270px;
+    @media (max-width: 479.98px) {
+      padding: 12px 40px;
+    }
+  }
+}
+.carousel-control-prev, .carousel-control-next {
+  width: 8%;
+}
