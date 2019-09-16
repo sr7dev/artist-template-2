@@ -19,7 +19,7 @@ function DefaultHeader() {
         minimized={{src: logo, width: 30, height: 45, alt: "BISHOPS Logo"}}
       />
       <AppSidebarToggler className="ml-auto menu-toggler" mobile >
-        <i class="fa fa-bars"></i>
+        <i className="fa fa-bars"></i>
       </AppSidebarToggler>
     </React.Fragment>
   );

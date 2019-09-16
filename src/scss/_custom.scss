@@ -525,3 +525,19 @@ label {
 .carousel-control-prev, .carousel-control-next {
   width: 8%;
 }
+.carousel-control-prev-icon {
+  background-image: none !important;
+  &::before{
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\F053";
+    font-size: 1em;
+  }
+}
+.carousel-control-next-icon {
+  background-image: none !important;
+  &::before{
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\F054";
+    font-size: 1em;
+  }
+}

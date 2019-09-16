@@ -60,6 +60,8 @@ class Dashboard extends Component {
     $(".nav-link").toggleClass("white-theme");
     $(".btn").toggleClass("white-theme");
     $(".nav").toggleClass("white-theme");
+    $(".carousel-control-prev-icon").toggleClass("white-theme");
+    $(".carousel-control-next-icon").toggleClass("white-theme");
   }
 
   clickNavItem(id) {
