@@ -31,10 +31,6 @@ body {
   }
 }
 
-.white-theme {
-  background-color: $body-color !important;
-  color: $body-bg !important;
-}
 h2, .h2 {
   font-size: 1.1em;
   font-weight: normal;
@@ -335,7 +331,8 @@ label {
       font-size: 0.6em;
       letter-spacing: 0.2em;
     }
-    .btn {
+    .read-more {
+      color: white;
       @media (max-width: 479.98px) {
         font-size: 5.5px;
         letter-spacing: 1.29px;
@@ -543,4 +540,9 @@ label {
 }
 .carousel-white-theme {
   color: black;
+}
+
+.white-theme {
+  background-color: $body-color !important;
+  color: $body-bg !important;
 }

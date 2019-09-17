@@ -1,6 +1,5 @@
 import React, {Suspense} from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
-import $ from "jquery";
 
 import {Nav, NavItem} from "reactstrap";
 import {AppSidebar} from "@coreui/react";
@@ -10,7 +9,6 @@ import {AppFooter, AppHeader} from "@coreui/react";
 import routes from "../../routes";
 
 import navigation from "../../_nav";
-
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
 const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
 
@@ -25,21 +23,37 @@ function DefaultLayout({history}) {
   }
 
   function changeTheme() {
-    $("body").toggleClass("white-theme");
-    $(".app-header").toggleClass("white-theme");
-    $(".app-footer").toggleClass("white-theme");
-    $(".nav-link").toggleClass("white-theme");
-    $(".nav").toggleClass("white-theme");
-    $(".btn").toggleClass("white-theme");
-    $(".carousel-control-prev-icon").toggleClass("carousel-white-theme");
-    $(".carousel-control-next-icon").toggleClass("carousel-white-theme");
+    document.querySelector("body").classList.toggle("white-theme");
+    // $("body").toggleClass("white-theme");
+    document
+      .querySelectorAll(".app-header")
+      .forEach(el => el.classList.toggle("white-theme"));
+    document
+      .querySelectorAll(".app-footer")
+      .forEach(el => el.classList.toggle("white-theme"));
+    document
+      .querySelectorAll(".nav-link")
+      .forEach(el => el.classList.toggle("white-theme"));
+    document.querySelectorAll(".nav").forEach(el => el.classList.toggle("white-theme"));
+    document.querySelectorAll(".btn").forEach(el => el.classList.toggle("white-theme"));
+    document
+      .querySelectorAll(".carousel-control-prev-icon")
+      .forEach(el => el.classList.toggle("carousel-white-theme"));
+    document
+      .querySelectorAll(".carousel-control-next-icon")
+      .forEach(el => el.classList.toggle("carousel-white-theme"));
   }
 
   function toggleMenu(id) {
-    $("body").toggleClass("sidebar-show");
-    $("body, html").animate({scrollTop: $(id).offset().top}, 800);
-    $("li.nav-item").removeClass("active");
-    $('.nav-item[data-id="' + id + '"]').addClass("active");
+    document.querySelector("body").classList.toggle("sidebar-show");
+    document.querySelectorAll("li.nav-item").forEach(el => el.classList.remove("active"));
+    document.querySelector('.nav-item[data-id="' + id + '"]').classList.add("active");
+    id = id.replace("#", "");
+    window.scrollTo({
+      top: document.getElementById(id).offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
   }
 
   return (

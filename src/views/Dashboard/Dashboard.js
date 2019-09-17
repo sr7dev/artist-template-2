@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {socialItems} from "../../constants/mock";
-import $ from "jquery";
 import navigation from "../../_nav";
 import {AppSidebarToggler} from "@coreui/react";
 import {Nav, NavItem} from "reactstrap";
@@ -29,7 +28,7 @@ class Dashboard extends Component {
     super(props);
 
     this.changeTheme = this.changeTheme.bind(this);
-    this.clickNavItem = this.clickNavItem.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
@@ -54,20 +53,37 @@ class Dashboard extends Component {
   }
 
   changeTheme() {
-    $("body").toggleClass("white-theme");
-    $(".app-header").toggleClass("white-theme");
-    $(".app-footer").toggleClass("white-theme");
-    $(".nav-link").toggleClass("white-theme");
-    $(".btn").toggleClass("white-theme");
-    $(".nav").toggleClass("white-theme");
-    $(".carousel-control-prev-icon").toggleClass("carousel-white-theme");
-    $(".carousel-control-next-icon").toggleClass("carousel-white-theme");
+    document.querySelector("body").classList.toggle("white-theme");
+    // $("body").toggleClass("white-theme");
+    document
+      .querySelectorAll(".app-header")
+      .forEach(el => el.classList.toggle("white-theme"));
+    document
+      .querySelectorAll(".app-footer")
+      .forEach(el => el.classList.toggle("white-theme"));
+    document
+      .querySelectorAll(".nav-link")
+      .forEach(el => el.classList.toggle("white-theme"));
+    document.querySelectorAll(".nav").forEach(el => el.classList.toggle("white-theme"));
+    document.querySelectorAll(".btn").forEach(el => el.classList.toggle("white-theme"));
+    document
+      .querySelectorAll(".carousel-control-prev-icon")
+      .forEach(el => el.classList.toggle("carousel-white-theme"));
+    document
+      .querySelectorAll(".carousel-control-next-icon")
+      .forEach(el => el.classList.toggle("carousel-white-theme"));
   }
 
-  clickNavItem(id) {
-    $("body, html").animate({scrollTop: $(id).offset().top}, 800);
-    $("li.nav-item").removeClass("active");
-    $('.nav-item[data-id="' + id + '"]').addClass("active");
+  toggleMenu(id) {
+    document.querySelector("body").classList.toggle("sidebar-show");
+    document.querySelectorAll("li.nav-item").forEach(el => el.classList.remove("active"));
+    document.querySelector('.nav-item[data-id="' + id + '"]').classList.add("active");
+    id = id.replace("#", "");
+    window.scrollTo({
+      top: document.getElementById(id).offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
   }
   onExiting() {
     this.animating = true;
@@ -209,7 +225,7 @@ class Dashboard extends Component {
                       data-id={item.url}
                       key={index}
                       className={index === 0 ? "active" : ""}
-                      onClick={() => this.clickNavItem(item.url)}
+                      onClick={() => this.toggleMenu(item.url)}
                     >
                       <span className="nav-link-span">{item.name}</span>
                     </NavItem>
@@ -245,9 +261,11 @@ class Dashboard extends Component {
                   Bringing the audacious and wonderfully talented Tim Durand
                   (drums/vocals) into the picture has
                 </div>
-                <Button color="dark" outline className="btn-pill read-more">
-                  Read More
-                </Button>
+                <div className="text-center">
+                  <Button color="dark" outline className="btn-pill read-more">
+                    Read More
+                  </Button>
+                </div>
               </Col>
 
               <Col md="5" sm="12">
@@ -274,7 +292,7 @@ class Dashboard extends Component {
                     </div>
                   </Col>
                   <Col xs="3" md="3" className="get-ticket">
-                    <Button color="dark" outline className="btn-pill">
+                    <Button color="dark" outline className="btn-pill read-more">
                       Get Tickets
                     </Button>
                   </Col>
