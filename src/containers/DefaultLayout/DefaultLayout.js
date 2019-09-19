@@ -4,12 +4,11 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import {Nav, NavItem} from "reactstrap";
 import {AppSidebar} from "@coreui/react";
 
-import {AppFooter, AppHeader} from "@coreui/react";
+import {AppHeader} from "@coreui/react";
 // routes config
 import routes from "../../routes";
 
 import navigation from "../../_nav";
-const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
 const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
 
 function DefaultLayout({history}) {
@@ -102,11 +101,6 @@ function DefaultLayout({history}) {
           </Suspense>
         </main>
       </div>
-      <AppFooter>
-        <Suspense fallback={loading()}>
-          <DefaultFooter />
-        </Suspense>
-      </AppFooter>
     </div>
   );
 }

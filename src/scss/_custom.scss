@@ -118,6 +118,18 @@ label {
     display: flex;
   }
 }
+
+html:not([dir="rtl"]) .sidebar {
+  right: 0;
+  margin-left: unset;
+  margin-right: -200px;
+}
+html:not([dir="rtl"]) .sidebar-show .sidebar, 
+html:not([dir="rtl"]) .sidebar-show .sidebar {
+  margin-right: 0;
+  margin-left: unset;
+}
+
 .app-header {
   background-color: $body-bg;
   border-bottom: solid 0.2px #979797;
@@ -470,10 +482,7 @@ label {
   }
 }
 
-.app-footer {
-  background: $body-bg;
-  border-top: none;
-  padding: 0 0;
+#contact {
   .row {
     margin-bottom: 1.2em;
     @media (max-width: 479.98px) {
