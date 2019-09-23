@@ -51,9 +51,50 @@ class Dashboard extends Component {
       activeIndex1: 0,
       dropdownOpen: false,
       radioSelected: 2,
+      first_name: "",
+      last_name: "Name",
+      email: "email@example.com",
+      message: "",
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value});
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const templateId = "template_U9xnORwc";
+
+    this.sendFeedback(
+      templateId,
+      this.state.email,
+      "info@jamfeed.com",
+      this.state.message
+    );
+
+    this.setState({
+      formSubmitted: true,
+    });
+  }
+  sendFeedback(templateId, senderEmail, receiverEmail, message) {
+    console.log(senderEmail, receiverEmail, message);
+    window.emailjs
+      .send("mailgun", templateId, {
+        from_name: this.state.first_name + " " + this.state.last_name,
+        senderEmail,
+        receiverEmail,
+        message_html: message,
+      })
+      .then(res => {
+        this.setState({formEmailSent: true});
+      })
+      // Handle errors here however you like, or use a React error boundary
+      .catch(err => console.error("Failed to send feedback. Error: ", err));
+  }
   changeTheme() {
     document.querySelector("body").classList.toggle("white-theme");
     // $("body").toggleClass("white-theme");
