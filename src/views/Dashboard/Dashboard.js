@@ -233,7 +233,7 @@ class Dashboard extends Component {
             {items.map((item, index1) => {
               return (
                 <Col md="4" key={index1}>
-                  <a href={item.url}>
+                  <a href={item.url} target="_blank" rel="noopener noreferrer">
                     <div className="music-item">
                       <img src={item.img} alt="" />
                       <div className="title">{item.title}</div>
@@ -303,7 +303,12 @@ class Dashboard extends Component {
             <div className="social-icons">
               {socialItems.map((item, index) => {
                 return (
-                  <a href={item.url} key={index}>
+                  <a
+                    href={item.url}
+                    key={index}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <img className="social-icon" src={item.img_url} alt="" />
                   </a>
                 );
@@ -411,7 +416,7 @@ class Dashboard extends Component {
               {data.merchItems.map((item, index) => {
                 return (
                   <Col md="6" key={index}>
-                    <a href={item.url}>
+                    <a href={item.url} target="_blank" rel="noopener noreferrer">
                       <div className="merch-item">
                         <img src={item.img} alt="" />
                         <div className="title">{item.title}</div>
