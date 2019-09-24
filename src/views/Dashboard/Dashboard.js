@@ -60,6 +60,24 @@ class Dashboard extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
+  handleScroll() {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const pos = document.getElementById("about").offsetTop;
+    if (winScroll + 100 >= pos) {
+      document.getElementById("desktop-nav").classList.add("top-to-fix");
+    } else {
+      document.getElementById("desktop-nav").classList.remove("top-to-fix");
+    }
+  }
+
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
   }
@@ -261,7 +279,7 @@ class Dashboard extends Component {
           <div className="hero">
             <img src={about} alt="" />
           </div>
-          <div className="navigation">
+          <div className="navigation" id="desktop-nav">
             <div className="mx-auto nav-bar">
               <Nav className="mx-auto header-nav" navbar>
                 {navigation.items.map((item, index) => {
