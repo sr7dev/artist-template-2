@@ -215,10 +215,12 @@ class Dashboard extends Component {
             {items.map((item, index1) => {
               return (
                 <Col md="4" key={index1}>
-                  <div className="music-item">
-                    <img src={item.img} alt="" />
-                    <div className="title">{item.title}</div>
-                  </div>
+                  <a href={item.url}>
+                    <div className="music-item">
+                      <img src={item.img} alt="" />
+                      <div className="title">{item.title}</div>
+                    </div>
+                  </a>
                 </Col>
               );
             })}
@@ -391,11 +393,13 @@ class Dashboard extends Component {
               {data.merchItems.map((item, index) => {
                 return (
                   <Col md="6" key={index}>
-                    <div className="merch-item">
-                      <img src={item.img} alt="" />
-                      <div className="title">{item.title}</div>
-                      <div className="price">${item.price}</div>
-                    </div>
+                    <a href={item.url}>
+                      <div className="merch-item">
+                        <img src={item.img} alt="" />
+                        <div className="title">{item.title}</div>
+                        <div className="price">${item.price}</div>
+                      </div>
+                    </a>
                   </Col>
                 );
               })}

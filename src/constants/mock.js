@@ -56,28 +56,34 @@ export const musicItems = [
     {
       img: music_1,
       title: "Truffle Trap",
+      url: "https://open.spotify.com/album/3VD4NZy6jbvHfkcZqy57fK",
     },
     {
       img: music_2,
       title: "Woes",
+      url: "https://open.spotify.com/album/6ZSdm8WkEnJjYcNazHyQWj",
     },
     {
       img: music_3,
       title: "Hi Beamin",
+      url: "https://open.spotify.com/album/3UBaoUsJWcKwaCpf6alxQq",
     },
   ],
   [
     {
       img: music_1,
       title: "Green Eyes",
+      url: "https://open.spotify.com/album/4mQ7B28gqc2JMVYpoY5D2O",
     },
     {
       img: music_2,
       title: "Golden Spell",
+      url: "https://open.spotify.com/album/6qghzZjgQAOlSZ25zQoa7y",
     },
     {
       img: music_3,
       title: "Above my Halo",
+      url: "https://open.spotify.com/album/3bYxdc8kW66CVyoKz6QtoM",
     },
   ],
 ];
@@ -110,11 +116,15 @@ export const merchItems = [
     img: merch,
     title: "The Mammoths T Shirt",
     price: "20",
+    url:
+      "https://www.facebook.com/Mamafesta/posts/festa-merch-now-available-shirts-15-s-m-l-xl-super-soft-next-level-tees-grey-shi/1523369217687559/",
   },
   {
     img: merch,
     title: "The Mammoths T Shirt",
     price: "20",
+    url:
+      "https://www.facebook.com/Mamafesta/posts/festa-merch-now-available-shirts-15-s-m-l-xl-super-soft-next-level-tees-grey-shi/1523369217687559/",
   },
 ];
 
