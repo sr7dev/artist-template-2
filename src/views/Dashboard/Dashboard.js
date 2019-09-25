@@ -354,10 +354,12 @@ class Dashboard extends Component {
                     <div className="month">{item.month}</div>
                   </Col>
                   <Col xs="6" md="6" className="get-ticket">
-                    <div>
-                      <div className="title">{item.title}</div>
-                      <div className="content">{item.address}</div>
-                    </div>
+                    <a href={item.url} target="_blank" rel="noopener noreferrer">
+                      <div>
+                        <div className="title">{item.title}</div>
+                        <div className="content">{item.address}</div>
+                      </div>
+                    </a>
                   </Col>
                   <Col xs="3" md="3" className="get-ticket">
                     <Button color="dark" outline className="btn-pill read-more">
@@ -436,14 +438,16 @@ class Dashboard extends Component {
               {data.newsItems.map((item, index) => {
                 return (
                   <Col md="6" sm="12" className="news-item" key={index}>
-                    <img src={item.img} alt="" />
-                    <div className="title">{item.title}</div>
-                    <div className="content">{item.content}</div>
-                    <div className="read-more">
-                      <Button color="dark" outline className="btn-pill read-more">
-                        Read More
-                      </Button>
-                    </div>
+                    <a href={item.url} target="_blank" rel="noopener noreferrer">
+                      <img src={item.img} alt="" />
+                      <div className="title">{item.title}</div>
+                      <div className="content">{item.content}</div>
+                      <div className="read-more">
+                        <Button color="dark" outline className="btn-pill read-more">
+                          Read More
+                        </Button>
+                      </div>
+                    </a>
                   </Col>
                 );
               })}

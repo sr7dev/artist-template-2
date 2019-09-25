@@ -21,12 +21,14 @@ export const newsItems = [
     title: "The Mammoths - Austin Music Foundation Artist of the Month",
     content:
       '"The Mammoths prove that rock ‘n’ roll is far from dead - in fact, it’s thriving within each member of this impassioned rock band. Their fusion of psychedelia and blues into a nod-worthy set of ',
+    url: "https://austinmusicfoundation.org/the-mammoths/",
   },
   {
     img: news_2,
     title: "Live Series: The Mammoths at Mean Eyed Cat",
     content:
       '"The Mammoths are known for their “fiery unapologetic live shows” (a quote from AMF’s Alex Vallejo) so it’s no surprise that they delivered the liveliest performance we’ve seen on the Mean Eyed Cat stage."',
+    url: "https://blog.moodmedia.com/live-series-the-mammoths-at-mean-eyed-cat/",
   },
 ];
 
@@ -36,18 +38,21 @@ export const tourItems = [
     month: "AUG",
     title: "The Mammoths, Visit Austin",
     address: "Merchant Exchange - San Francisco, CA",
+    url: "https://themammothsmusic.com/tour-1",
   },
   {
     day: "25",
     month: "AUG",
     title: "The Mammoths",
     address: "The Basement - Nashville, TN",
+    url: "https://themammothsmusic.com/tour-1",
   },
   {
     day: "29",
     month: "AUG",
     title: "The Mammoths",
     address: "The Mohawk - Austin, TX",
+    url: "https://themammothsmusic.com/tour-1",
   },
 ];
 
@@ -55,35 +60,18 @@ export const musicItems = [
   [
     {
       img: music_1,
-      title: "Truffle Trap",
+      title: "Green Eyes",
       url: "https://open.spotify.com/album/3VD4NZy6jbvHfkcZqy57fK",
     },
     {
       img: music_2,
-      title: "Woes",
+      title: "Golden Spell",
       url: "https://open.spotify.com/album/6ZSdm8WkEnJjYcNazHyQWj",
     },
     {
       img: music_3,
-      title: "Hi Beamin",
-      url: "https://open.spotify.com/album/3UBaoUsJWcKwaCpf6alxQq",
-    },
-  ],
-  [
-    {
-      img: music_1,
-      title: "Green Eyes",
-      url: "https://open.spotify.com/album/4mQ7B28gqc2JMVYpoY5D2O",
-    },
-    {
-      img: music_2,
-      title: "Golden Spell",
-      url: "https://open.spotify.com/album/6qghzZjgQAOlSZ25zQoa7y",
-    },
-    {
-      img: music_3,
       title: "Above my Halo",
-      url: "https://open.spotify.com/album/3bYxdc8kW66CVyoKz6QtoM",
+      url: "https://open.spotify.com/album/3UBaoUsJWcKwaCpf6alxQq",
     },
   ],
 ];
@@ -99,16 +87,6 @@ export const videoItems = [
       url: "https://youtu.be/AKtqB2pMMjY",
     },
   ],
-  [
-    {
-      title: "Blood Ring - Official  Video",
-      url: "https://www.youtube.com/watch?v=g2zaLbuBIEE",
-    },
-    {
-      title: "Woes - Official Video",
-      url: "https://www.youtube.com/watch?v=_uIy-VKfTSs",
-    },
-  ],
 ];
 
 export const merchItems = [
@@ -116,53 +94,52 @@ export const merchItems = [
     img: merch,
     title: "The Mammoths T Shirt",
     price: "20",
-    url:
-      "https://www.facebook.com/Mamafesta/posts/festa-merch-now-available-shirts-15-s-m-l-xl-super-soft-next-level-tees-grey-shi/1523369217687559/",
+    url: "https://themammothsmusic.com/merch/t-shirt",
   },
   {
     img: merch,
     title: "The Mammoths T Shirt",
     price: "20",
-    url:
-      "https://www.facebook.com/Mamafesta/posts/festa-merch-now-available-shirts-15-s-m-l-xl-super-soft-next-level-tees-grey-shi/1523369217687559/",
+    url: "https://themammothsmusic.com/merch/t-shirt",
   },
 ];
 
 export const socialItems = [
   {
     img_url: spotify,
-    url: "https://open.spotify.com/artist/2deuprRz9fqMiBfTV6CAo5",
+    url:
+      "https://open.spotify.com/artist/33Cjnij54yY7dwWv0o5HHZ?si=lbBI67D9Sz2cAO4hFUdMkg",
   },
   {
     img_url: music,
-    url: "https://music.apple.com/ca/artist/the-bishops/1086826479",
+    url: "https://itunes.apple.com/us/artist/the-mammoths/1181502038",
   },
   {
     img_url: youtube,
-    url: "https://www.youtube.com/channel/UCd1yaBcDXiBEpDBwnjvVebw",
+    url: "https://www.youtube.com/channel/UCZO16V9ddR4bJVhPZVEEqDw",
   },
   {
     img_url: sound_cloud,
-    url: "https://soundcloud.com/the_bishops",
+    url: "https://soundcloud.com/the-mammoths",
   },
   {
     img_url: facebook,
-    url: "https://www.facebook.com/thebishopsmusic/",
+    url: "https://www.facebook.com/TheMammothsMusic",
   },
   {
     img_url: twitter,
-    url: "https://twitter.com/thebishopsatx?lang=en",
+    url: "https://twitter.com/The_Mammoths_TX",
   },
   {
     img_url: instagram,
-    url: "https://www.instagram.com/thebishopsmusic/",
+    url: "https://www.instagram.com/mamafestamusic/?hl=en",
   },
   {
     img_url: songkick,
-    url: "https://www.songkick.com/artists/9835239-bishops-music",
+    url: "https://www.songkick.com/artists/4341501-mammoths",
   },
   {
     img_url: bandsintown,
-    url: "https://www.bandsintown.com/en/a/13269757-the-bishops",
+    url: "http://bandsintown.com/TheMammoths",
   },
 ];
