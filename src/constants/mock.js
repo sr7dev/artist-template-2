@@ -61,17 +61,17 @@ export const musicItems = [
     {
       img: music_1,
       title: "Green Eyes",
-      url: "https://open.spotify.com/album/3VD4NZy6jbvHfkcZqy57fK",
+      url: "https://open.spotify.com/album/4mQ7B28gqc2JMVYpoY5D2O",
     },
     {
       img: music_2,
       title: "Golden Spell",
-      url: "https://open.spotify.com/album/6ZSdm8WkEnJjYcNazHyQWj",
+      url: "https://open.spotify.com/album/6qghzZjgQAOlSZ25zQoa7y",
     },
     {
       img: music_3,
       title: "Above my Halo",
-      url: "https://open.spotify.com/album/3UBaoUsJWcKwaCpf6alxQq",
+      url: "https://open.spotify.com/album/3bYxdc8kW66CVyoKz6QtoM",
     },
   ],
 ];
