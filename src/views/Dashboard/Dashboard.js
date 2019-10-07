@@ -362,7 +362,14 @@ class Dashboard extends Component {
                     </a>
                   </Col>
                   <Col xs="3" md="3" className="get-ticket">
-                    <Button color="dark" outline className="btn-pill read-more">
+                    <Button
+                      color="dark"
+                      outline
+                      className="btn-pill read-more"
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       Get Tickets
                     </Button>
                   </Col>
