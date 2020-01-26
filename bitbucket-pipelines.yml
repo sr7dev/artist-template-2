@@ -1,0 +1,22 @@
+image: node:10.15.3
+
+pipelines:
+  branches:
+    %site-cname%:
+      - step:
+          name: "Buid and Test"
+          caches:
+            - node
+          script:
+            - npm install
+      - step:
+          name: "Deploy to AWS"
+          caches:
+            - node
+          script:
+            - npm run build
+            - apt-get update && apt-get install -y python-dev
+            - curl -O https://bootstrap.pypa.io/get-pip.py
+            - python get-pip.py
+            - pip install awscli --upgrade
+            - aws s3 sync ./build s3://%site-cname%.jamfeed.com --acl public-read
