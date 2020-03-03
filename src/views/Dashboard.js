@@ -1,11 +1,10 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {AppSidebarToggler} from "@coreui/react";
+import {AppSidebarToggler, AppSidebar} from "@coreui/react";
 import {SizeMe} from "react-sizeme";
 import {
   Nav,
   NavItem,
-  Label,
   Input,
   Button,
   Col,
@@ -20,49 +19,33 @@ import ShowMore from "@tedconf/react-show-more";
 import chunk from "lodash/chunk";
 import ShowMoreText from "react-show-more-text";
 
-import {generateSocialItems} from "../constants/mock";
+import {ConfirmationPopup, BuyNow, BandsinTownWidget} from "../components";
+import {appDataSelector, switchTheme, themeModeSelector} from "../modules/app";
 import navigation from "../_nav";
-import {appDataSelector} from "../modules/app";
+import config from "../config";
+import {generateSocialItems} from "../constants/mock";
 
 const mapStateToProps = state => ({
   appData: appDataSelector(state),
+  darkMode: themeModeSelector(state),
 });
 
+const mapDispatch = {
+  switchTheme,
+};
+
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.changeTheme = this.changeTheme.bind(this);
-    this.toggleMenu = this.toggleMenu.bind(this);
-    this.next = this.next.bind(this);
-    this.previous = this.previous.bind(this);
-    this.onExiting = this.onExiting.bind(this);
-    this.onExited = this.onExited.bind(this);
-
-    this.nextMusic = this.nextMusic.bind(this);
-    this.previousMusic = this.previousMusic.bind(this);
-    this.goToIndex1 = this.goToIndex1.bind(this);
-    this.onMusicExisting = this.onMusicExisting.bind(this);
-    this.onMusicExisted = this.onMusicExisted.bind(this);
-
-    this.toggle = this.toggle.bind(this);
-    this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-
-    this.state = {
-      mountLightbox: false,
-      videoToPreview: null,
-      videoSlidesActiveIndex: 0,
-      musicSlidesActiveIndex: 0,
-      dropdownOpen: false,
-      radioSelected: 2,
-      first_name: "",
-      last_name: "Name",
-      email: "email@example.com",
-      message: "",
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  state = {
+    mountLightbox: false,
+    videoToPreview: null,
+    videoSlidesActiveIndex: 0,
+    musicSlidesActiveIndex: 0,
+    dropdownOpen: false,
+    radioSelected: 2,
+    email: "",
+    openConfirmationPopup: false,
+    confirmationMessage: "",
+  };
 
   componentDidMount() {
     window.addEventListener("scroll", this.handleScroll);
@@ -72,20 +55,13 @@ class Dashboard extends Component {
     window.removeEventListener("scroll", this.handleScroll);
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.appData && !prevProps.appData) {
-      const wf = document.createElement("script");
-      wf.src = "https://widget.bandsintown.com/main.min.js";
-      wf.charset = "utf-8";
-      wf.async = "true";
-      const s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(wf, s);
-    }
-  }
-
   handleScroll() {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const pos = document.getElementById("about").offsetTop;
+    const tourEl = document.getElementById("tour");
+    if (!tourEl) return;
+    const desktopNavEl = document.getElementById("desktop-nav");
+    if (!desktopNavEl) return;
+    const pos = tourEl.offsetTop;
     if (winScroll + 100 >= pos) {
       document.getElementById("desktop-nav").classList.add("top-to-fix");
     } else {
@@ -93,65 +69,7 @@ class Dashboard extends Component {
     }
   }
 
-  handleChange(event) {
-    this.setState({[event.target.name]: event.target.value});
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    const templateId = "template_U9xnORwc";
-
-    this.sendFeedback(
-      templateId,
-      this.state.email,
-      "info@jamfeed.com",
-      this.state.message
-    );
-
-    this.setState({
-      formSubmitted: true,
-    });
-  }
-
-  sendFeedback(templateId, senderEmail, receiverEmail, message) {
-    window.emailjs
-      .send("mailgun", templateId, {
-        from_name: this.state.first_name + " " + this.state.last_name,
-        senderEmail,
-        receiverEmail,
-        message_html: message,
-      })
-      .then(res => {
-        this.setState({formEmailSent: true});
-      })
-      // Handle errors here however you like, or use a React error boundary
-      .catch(err => console.error("Failed to send feedback. Error: ", err));
-  }
-
-  changeTheme() {
-    document.querySelector("body").classList.toggle("white-theme");
-    // $("body").toggleClass("white-theme");
-    document
-      .querySelectorAll(".app-header")
-      .forEach(el => el.classList.toggle("white-theme"));
-    document
-      .querySelectorAll(".app-footer")
-      .forEach(el => el.classList.toggle("white-theme"));
-    document
-      .querySelectorAll(".nav-link")
-      .forEach(el => el.classList.toggle("white-theme"));
-    document.querySelectorAll(".nav").forEach(el => el.classList.toggle("white-theme"));
-    document.querySelectorAll(".btn").forEach(el => el.classList.toggle("white-theme"));
-    document
-      .querySelectorAll(".carousel-control-prev-icon")
-      .forEach(el => el.classList.toggle("carousel-white-theme"));
-    document
-      .querySelectorAll(".carousel-control-next-icon")
-      .forEach(el => el.classList.toggle("carousel-white-theme"));
-  }
-
-  toggleMenu(id) {
+  toggleMenu = id => {
     document.querySelector("body").classList.toggle("sidebar-show");
     document.querySelectorAll("li.nav-item").forEach(el => el.classList.remove("active"));
     document.querySelector('.nav-item[data-id="' + id + '"]').classList.add("active");
@@ -161,76 +79,110 @@ class Dashboard extends Component {
       left: 0,
       behavior: "smooth",
     });
-  }
+  };
 
-  onExiting() {
-    this.animating = true;
-  }
+  onExiting = () => {
+    this.isAnimatingVideoSlide = true;
+  };
 
-  onExited() {
-    this.animating = false;
-  }
+  onExited = () => {
+    this.isAnimatingVideoSlide = false;
+  };
 
-  next() {
-    if (this.animating) return;
-    const nextIndex =
-      this.state.videoSlidesActiveIndex === this.props.appData.videoItems.length - 1
-        ? 0
-        : this.state.videoSlidesActiveIndex + 1;
+  next = () => {
+    if (this.isAnimatingVideoSlide) return;
+
+    const {videoSlidesActiveIndex} = this.state;
+    const {
+      appData: {videoItems},
+    } = this.props;
+
+    if (videoItems.length <= 2) return;
+
+    let nextIndex = 0;
+    if (Math.ceil(videoItems.length / 2) - 1 === videoSlidesActiveIndex) {
+      nextIndex = 0;
+    } else {
+      nextIndex = videoSlidesActiveIndex + 1;
+    }
+
     this.setState({videoSlidesActiveIndex: nextIndex});
-  }
+  };
 
-  previous() {
-    if (this.animating) return;
+  previous = () => {
+    if (this.isAnimatingVideoSlide) return;
+
+    const {videoSlidesActiveIndex} = this.state;
+    const {
+      appData: {videoItems},
+    } = this.props;
+
+    if (videoItems.length <= 2) return;
+
     const nextIndex =
-      this.state.videoSlidesActiveIndex === 0
-        ? this.props.appData.videoItems.length - 1
-        : this.state.videoSlidesActiveIndex - 1;
+      videoSlidesActiveIndex === 0
+        ? Math.ceil(videoItems.length / 2) - 1
+        : videoSlidesActiveIndex - 1;
+
     this.setState({videoSlidesActiveIndex: nextIndex});
-  }
+  };
 
-  onMusicExisting() {
-    this.animating1 = true;
-  }
+  onMusicExisting = () => {
+    this.isAnimatingMusicSlide = true;
+  };
 
-  onMusicExisted() {
-    this.animating1 = false;
-  }
+  onMusicExisted = () => {
+    this.isAnimatingMusicSlide = false;
+  };
 
-  goToIndex1(newIndex) {
-    if (this.animating1) return;
-    this.setState({musicSlidesActiveIndex: newIndex});
-  }
+  nextMusic = () => {
+    if (this.isAnimatingMusicSlide) return;
 
-  nextMusic() {
-    if (this.animating1) return;
-    const nextIndex =
-      this.state.musicSlidesActiveIndex === this.props.appData.musicItems.length - 1
-        ? 0
-        : this.state.musicSlidesActiveIndex + 1;
+    const {musicSlidesActiveIndex} = this.state;
+    const {
+      appData: {musicItems},
+    } = this.props;
+
+    if (musicItems.length <= 3) return;
+
+    let nextIndex = 0;
+    if (Math.ceil(musicItems.length / 3) - 1 === musicSlidesActiveIndex) {
+      nextIndex = 0;
+    } else {
+      nextIndex = musicSlidesActiveIndex + 1;
+    }
+
     this.setState({musicSlidesActiveIndex: nextIndex});
-  }
+  };
 
-  previousMusic() {
-    if (this.animating1) return;
+  previousMusic = () => {
+    if (this.isAnimatingMusicSlide) return;
+
+    const {musicSlidesActiveIndex} = this.state;
+    const {
+      appData: {musicItems},
+    } = this.props;
+
+    if (musicItems.length <= 3) return;
+
     const nextIndex =
-      this.state.musicSlidesActiveIndex === 0
-        ? this.props.appData.musicItems.length - 1
-        : this.state.musicSlidesActiveIndex - 1;
+      musicSlidesActiveIndex === 0
+        ? Math.ceil(musicItems.length / 3) - 1
+        : musicSlidesActiveIndex - 1;
     this.setState({musicSlidesActiveIndex: nextIndex});
-  }
+  };
 
-  toggle() {
+  toggle = () => {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
     });
-  }
+  };
 
-  onRadioBtnClick(radioSelected) {
+  onRadioBtnClick = radioSelected => {
     this.setState({
       radioSelected: radioSelected,
     });
-  }
+  };
 
   showVideo = videoUrl => () => {
     this.setState({mountLightbox: true}, () => {
@@ -238,11 +190,29 @@ class Dashboard extends Component {
     });
   };
 
+  handleJoinEList = async () => {
+    const builderId = config.builderId;
+    const pubKey = config.pubKey;
+    const baseUrl = config.baseUrl;
+
+    try {
+      await fetch(
+        `${baseUrl}/rest/webbuilder/joinEmailList?builderId=${builderId}&pubKey=${pubKey}&email=${this.state.email}`
+      );
+      this.setState({
+        confirmationMessage: "You've successfully subscribed to the mailing list.",
+        openConfirmationPopup: true,
+      });
+    } catch (error) {
+      console.log("join e-list error", error);
+    }
+  };
+
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>;
 
   render() {
-    const {appData = {}} = this.props;
     const {videoSlidesActiveIndex, musicSlidesActiveIndex} = this.state;
+    const {appData, darkMode} = this.props;
 
     const artist = appData.artist || {};
     const socialLinks = appData.socialURLs || {};
@@ -264,8 +234,17 @@ class Dashboard extends Component {
                 <Col md="4" key={index1}>
                   <a href={item.url} target="_blank" rel="noopener noreferrer">
                     <div className="music-item">
-                      <img src={item.images[1].url} alt="" />
-                      <div className="title">{item.title}</div>
+                      <div
+                        className="music-image"
+                        style={{
+                          backgroundImage: `url(${item.image})`,
+                          backgroundSize: "cover",
+                        }}
+                      />
+                      <div
+                        className="title"
+                        dangerouslySetInnerHTML={{__html: item.title}}
+                      ></div>
                     </div>
                   </a>
                 </Col>
@@ -285,19 +264,16 @@ class Dashboard extends Component {
                 <Col md="6" key={index1}>
                   <div className="video-item">
                     <div className="player-wrapper">
-                      <img src={item.thumbnails.high.url} alt="" />
+                      <img src={item.thumbnail} alt="" />
                       <div
                         className="play-button"
                         onClick={this.showVideo(item.url)}
                       ></div>
-                      {/* <ReactPlayer
-                        url={item.url}
-                        width="100%"
-                        height="100%"
-                        className="react-player"
-                      ></ReactPlayer> */}
                     </div>
-                    <div className="title">{item.title}</div>
+                    <div
+                      className="title"
+                      dangerouslySetInnerHTML={{__html: item.title}}
+                    ></div>
                   </div>
                 </Col>
               );
@@ -309,19 +285,55 @@ class Dashboard extends Component {
 
     return (
       <div className="animated fadeIn">
+        <AppSidebar className="d-lg-none">
+          <Nav>
+            {navigation.items.map((item, index) => {
+              if (item.url === "#merch") {
+                return socialLinks.merch ? (
+                  <a
+                    key={index}
+                    href={socialLinks.merch}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <NavItem>
+                      <span className="nav-link">{item.name}</span>
+                    </NavItem>
+                  </a>
+                ) : null;
+              } else {
+                return (
+                  <NavItem
+                    data-id={item.url}
+                    key={index}
+                    className={index === 0 ? "active" : ""}
+                    onClick={() => this.toggleMenu(item.url)}
+                  >
+                    <span className="nav-link">{item.name}</span>
+                  </NavItem>
+                );
+              }
+            })}
+            <NavItem onClick={this.props.switchTheme}>
+              <i className="fa fa-exchange nav-link"></i>
+            </NavItem>
+          </Nav>
+        </AppSidebar>
         <SizeMe>
           {({size}) => (
-            <section id="home">
-              <div
-                className="hero"
-                style={{
-                  background: `url(${websiteCover.desktop_photo_url}) no-repeat`,
-                  height: (size.width * 1024) / 1440,
-                }}
-              />
-
+            <section
+              id="home"
+              style={{
+                backgroundImage: `url(${
+                  size.width > 480
+                    ? websiteCover.desktop_photo_url
+                    : websiteCover.mobile_photo_url
+                })`,
+              }}
+            >
               <div className="navigation" id="desktop-nav">
                 <div className="mx-auto nav-bar">
+                  <BuyNow />
                   <Nav className="mx-auto header-nav" navbar>
                     {navigation.items.map((item, index) => {
                       if (item.url === "#merch") {
@@ -350,7 +362,7 @@ class Dashboard extends Component {
                         );
                       }
                     })}
-                    <NavItem onClick={this.changeTheme}>
+                    <NavItem onClick={this.props.switchTheme}>
                       <i className="fa fa-exchange nav-link-span"></i>
                     </NavItem>
                   </Nav>
@@ -375,92 +387,27 @@ class Dashboard extends Component {
           )}
         </SizeMe>
 
-        {/* About Section */}
-        <section id="about">
-          {websiteCover.bio && (
-            <Container>
-              <h2>Bio</h2>
-              <SizeMe>
-                {({size}) => (
-                  <Row>
-                    <Col md="7" sm="12">
-                      <ShowMoreText
-                        lines={size.width > 752 ? 10 : 5}
-                        more="Show more"
-                        less="Show less"
-                        expanded={false}
-                        width={size.width > 752 ? (size.width * 7) / 24 : 0}
-                        anchorClass="bio-read-more"
-                      >
-                        {websiteCover.bio}
-                      </ShowMoreText>
-                    </Col>
-                    <Col md="5" sm="12" style={{textAlign: "center"}}>
-                      <img src={websiteCover.desktop_photo_url} alt="" />
-                    </Col>
-                  </Row>
-                )}
-              </SizeMe>
-            </Container>
-          )}
+        <section id="tour">
+          <Container>
+            <h2>Tour</h2>
+            {artist.name && darkMode && (
+              <BandsinTownWidget
+                key="dark"
+                artistName={artist.name}
+                darkMode={true}
+                theme={websiteCover}
+              />
+            )}
+            {artist.name && !darkMode && (
+              <BandsinTownWidget
+                key="light"
+                artistName={artist.name}
+                darkMode={false}
+                theme={websiteCover}
+              />
+            )}
+          </Container>
         </section>
-
-        {artist.name && (
-          <section id="tour">
-            <Container>
-              <h2>Tour</h2>
-              <a
-                className="bit-widget-initializer"
-                data-artist-name={artist.name}
-                data-display-local-dates="false"
-                data-display-past-dates="false"
-                data-auto-style="false"
-                data-text-color="#000000"
-                data-link-color="#00b4b3"
-                data-background-color="rgba(0,0,0,0)"
-                data-display-limit="15"
-                data-display-start-time="false"
-                data-link-text-color="#FFFFFF"
-                data-display-lineup="false"
-                data-display-play-my-city="true"
-                data-separator-color="rgba(124,124,124,0.25)"
-                href="https://bandsintown.com"
-              >
-                No Concerts
-              </a>
-              {/* {data.tourItems.map((item, index) => {
-                return (
-                  <Row className="tour-item" key={index}>
-                    <Col xs="3" md="3" className="date">
-                      <div className="day">{item.day}</div>
-                      <div className="month">{item.month}</div>
-                    </Col>
-                    <Col xs="6" md="6" className="get-ticket">
-                      <a href={item.url} target="_blank" rel="noopener noreferrer">
-                        <div>
-                          <div className="title">{item.title}</div>
-                          <div className="content">{item.address}</div>
-                        </div>
-                      </a>
-                    </Col>
-                    <Col xs="3" md="3" className="get-ticket">
-                      <Button
-                        color="dark"
-                        outline
-                        className="btn-pill read-more"
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Get Tickets
-                      </Button>
-                    </Col>
-                  </Row>
-                );
-              })} */}
-            </Container>
-          </section>
-        )}
 
         <section id="music">
           <Container>
@@ -543,7 +490,10 @@ class Dashboard extends Component {
                             }}
                           />
                           {/* <img src={item.pictureurl} alt="" /> */}
-                          <div className="title">{item.title}</div>
+                          <div
+                            className="title"
+                            dangerouslySetInnerHTML={{__html: item.title}}
+                          ></div>
                           <div className="content">{item.content}</div>
                           <div className="read-more">
                             <Button color="dark" outline className="btn-pill read-more">
@@ -553,115 +503,122 @@ class Dashboard extends Component {
                         </a>
                       </Col>
                     ))}
-                    <div className="load-more">
-                      <Button
-                        color="dark"
-                        outline
-                        className="btn-pill read-more"
-                        disabled={!onMore}
-                        onClick={() => {
-                          if (!!onMore) onMore();
-                        }}
-                      >
-                        Load more
-                      </Button>
-                    </div>
+                    {newsItems.length !== current.length && (
+                      <div className="load-more">
+                        <Button
+                          color="dark"
+                          outline
+                          className="btn-pill read-more"
+                          disabled={!onMore}
+                          onClick={() => {
+                            if (!!onMore) onMore();
+                          }}
+                        >
+                          Load more
+                        </Button>
+                      </div>
+                    )}
                   </>
                 )}
               </ShowMore>
-              {/* {newsItems.map((item, index) => {
-                return (
-                  <Col md="6" sm="12" className="news-item" key={index}>
-                    <a href={item.linkurl} target="_blank" rel="noopener noreferrer">
-                      <img src={item.pictureurl} alt="" />
-                      <div className="title">{item.title}</div>
-                      <div className="content">{item.content}</div>
-                      <div className="read-more">
-                        <Button color="dark" outline className="btn-pill read-more">
-                          Read More
-                        </Button>
-                      </div>
-                    </a>
-                  </Col>
-                );
-              })} */}
             </Row>
           </Container>
+        </section>
+
+        {/* About Section */}
+        <section id="about">
+          {websiteCover.bio && (
+            <Container>
+              <h2>Bio</h2>
+              <SizeMe>
+                {({size}) => (
+                  <Row>
+                    <Col md="7" sm="12">
+                      <ShowMoreText
+                        lines={size.width > 752 ? 10 : 5}
+                        more="Show more"
+                        less="Show less"
+                        expanded={false}
+                        width={size.width > 752 ? (size.width * 7) / 24 : 0}
+                        anchorClass="bio-read-more"
+                      >
+                        {websiteCover.bio}
+                      </ShowMoreText>
+                    </Col>
+                    <Col md="5" sm="12" style={{textAlign: "center"}}>
+                      <img src={websiteCover.desktop_photo_url} alt="" />
+                    </Col>
+                  </Row>
+                )}
+              </SizeMe>
+            </Container>
+          )}
         </section>
 
         {/* Contact Section */}
         <section id="contact">
           <Container>
             <h2>CONTACT</h2>
-            <Row>
-              <Col className="contact">Booking Agent: {websiteCover.booking_agent}</Col>
-            </Row>
-            <Row>
-              <Col className="contact">Management: {websiteCover.general_manager}</Col>
-            </Row>
-            <form onSubmit={this.handleSubmit}>
-              <Row>
-                <Col xs="6" className="pr-2 pr-sm-3">
+            <div className="band-info">
+              {websiteCover.booking_agent && (
+                <div className="text-center">
+                  <span>Booking Agent:&nbsp;</span>
+                  {websiteCover.booking_agent}
+                </div>
+              )}
+              {websiteCover.general_manager && (
+                <div className="text-center">
+                  <span>Management:&nbsp;</span>
+                  {websiteCover.general_manager}
+                </div>
+              )}
+              {websiteCover.press && (
+                <div className="text-center">
+                  <span>Press:&nbsp;</span>
+                  {websiteCover.press}
+                </div>
+              )}
+            </div>
+            {appData.captureLead && (
+              <>
+                <div className="text-center mb-60px">Join Our Email Newsletter!</div>
+                <div className="text-center mb-60px">
                   <Input
                     type="text"
-                    id="first_name"
-                    name="first_name"
+                    id="name"
                     className="email-addr"
-                    onChange={this.handleChange}
+                    placeholder="Enter your email address"
                     required
+                    value={this.state.email}
+                    onChange={e => {
+                      this.setState({email: e.target.value});
+                    }}
                   />
-                  <Label htmlFor="first_name">First Name *</Label>
-                </Col>
-                <Col xs="6" className="pl-2 pl-sm-3">
-                  <Input
-                    type="text"
-                    id="last_name"
-                    name="last_name"
-                    className="email-addr"
-                    onChange={this.handleChange}
-                    required
-                  />
-                  <Label htmlFor="last_name">Last Name *</Label>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Input
-                    type="text"
-                    id="email"
-                    name="email"
-                    className="email-addr"
-                    onChange={this.handleChange}
-                    required
-                  />
-                  <Label htmlFor="email">Email *</Label>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Input
-                    type="textarea"
-                    id="message"
-                    name="message"
-                    className="email-addr"
-                    onChange={this.handleChange}
-                    required
-                  />
-                  <Label htmlFor="message">Message *</Label>
-                </Col>
-              </Row>
-              <div className="text-center mb-60px">
-                <Button color="dark" outline className="btn-pill join-btn">
-                  Submit
-                </Button>
-              </div>
-            </form>
+                </div>
+                <div className="text-center mb-60px">
+                  <Button
+                    color="success"
+                    className="btn-pill join-btn"
+                    onClick={this.handleJoinEList}
+                  >
+                    Join E-List
+                  </Button>
+                </div>
+              </>
+            )}
             <div className="app-info">© 2020 {artist.name}</div>
           </Container>
         </section>
+        <ConfirmationPopup
+          open={this.state.openConfirmationPopup}
+          message={this.state.confirmationMessage}
+          onRequestClose={() => {
+            this.setState({openConfirmationPopup: false});
+          }}
+        />
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatch)(Dashboard);

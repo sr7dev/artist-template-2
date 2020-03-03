@@ -14,29 +14,22 @@ const initialState = {};
 export const loadingReducerSelector = state => state.loading;
 
 export const isLoading = actionCreator =>
-  createSelector(
-    loadingReducerSelector,
-    loadingReducer => {
-      const data = loadingReducer[actionCreator.toString()];
+  createSelector(loadingReducerSelector, loadingReducer => {
+    const data = loadingReducer[actionCreator.toString()];
 
-      return !isNil(data) && data.loading;
-    }
-  );
+    return !isNil(data) && data.loading;
+  });
 
 export const wasActionDispatchedSuccessfully = actionCreator =>
-  createSelector(
-    loadingReducerSelector,
-    loadingReducer => {
-      const data = loadingReducer[actionCreator.toString()];
+  createSelector(loadingReducerSelector, loadingReducer => {
+    const data = loadingReducer[actionCreator.toString()];
 
-      return !isNil(data) && data.loading && !data.error;
-    }
-  );
+    return !isNil(data) && data.loading && !data.error;
+  });
 
 export const getErrorMessage = actionCreator =>
-  createSelector(
-    loadingReducerSelector,
-    loadingReducer => get(loadingReducer[actionCreator.toString()], "error")
+  createSelector(loadingReducerSelector, loadingReducer =>
+    get(loadingReducer[actionCreator.toString()], "error")
   );
 
 /**

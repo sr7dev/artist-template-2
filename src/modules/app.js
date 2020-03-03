@@ -1,19 +1,23 @@
 import {createAction, handleActions} from "redux-actions";
 import {createSelector} from "reselect";
-import * as mock from "../constants/mock";
-import {SET_DATA, SET_MUSIC, SET_VIDEO} from "./actions";
+import {SET_DATA, SET_MUSIC, SET_VIDEO, SWITCH_THEME} from "./actions";
 
 // ==================================
 // Selectors
 // ==================================
-export const dataSelector = createSelector(
-  state => state.app,
-  app => app.data
-);
-
 export const appDataSelector = createSelector(
   state => state.app,
   app => app.appData
+);
+
+export const themeModeSelector = createSelector(
+  state => state.app,
+  app => app.darkMode
+);
+
+export const isSubscriptionActiveSelector = createSelector(
+  state => state.app,
+  app => (app.appData || {}).subscriptionActive
 );
 
 // ==================================
@@ -24,6 +28,8 @@ export const setAppData = createAction(SET_DATA);
 export const setMusic = createAction(SET_MUSIC);
 
 export const setVideo = createAction(SET_VIDEO);
+
+export const switchTheme = createAction(SWITCH_THEME);
 
 // ==================================
 // Action Handlers
@@ -51,6 +57,10 @@ const ACTION_HANDLERS = {
       videoItems: action.payload,
     },
   }),
+  [switchTheme]: state => ({
+    ...state,
+    darkMode: !state.darkMode,
+  }),
 };
 
 // ==================================
@@ -58,7 +68,8 @@ const ACTION_HANDLERS = {
 // ==================================
 
 const initialState = {
-  data: mock,
+  appData: {},
+  darkMode: true,
 };
 
 export default handleActions(ACTION_HANDLERS, initialState);

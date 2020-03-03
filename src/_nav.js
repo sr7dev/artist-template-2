@@ -5,10 +5,6 @@ export default {
       url: "#home",
     },
     {
-      name: "NEWS",
-      url: "#news",
-    },
-    {
       name: "TOUR",
       url: "#tour",
     },
@@ -19,6 +15,10 @@ export default {
     {
       name: "VIDEOS",
       url: "#videos",
+    },
+    {
+      name: "NEWS",
+      url: "#news",
     },
     {
       name: "MERCH",

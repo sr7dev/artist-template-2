@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {AppSidebarToggler} from "@coreui/react";
 // import {AppNavbarBrand, AppSidebarToggler} from "@coreui/react";
 
-// import logo from "../../assets/img/brand/logo.svg";
+import {BuyNow} from "../../components";
 
 const propTypes = {
   children: PropTypes.node,
@@ -18,6 +18,7 @@ function DefaultHeader() {
         full={{src: logo, width: 30, height: 45, alt: "BISHOPS Logo"}}
         minimized={{src: logo, width: 30, height: 45, alt: "BISHOPS Logo"}}
       /> */}
+      <BuyNow />
       <AppSidebarToggler className="ml-auto menu-toggler" mobile>
         <i className="fa fa-bars"></i>
       </AppSidebarToggler>

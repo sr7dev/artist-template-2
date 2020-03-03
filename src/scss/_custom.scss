@@ -1,22 +1,4 @@
-// Here you can add other styles
-@font-face {
-  font-family: "AvenirNext";
-  font-weight: 500;
-  src: url('../assets/fonts/AvenirNextLTPro-Bold.otf') format("opentype");
-}
-@font-face {
-  font-family: "AvenirNext";
-  font-weight: bold;
-  src: url('../assets/fonts/AvenirNextLTPro-MediumCn.otf') format("opentype"),
-}
-@font-face {
-  font-family: "AvenirNext";
-  font-weight: normal;
-  src: url('../assets/fonts/AvenirNextLTPro-Regular.otf') format("opentype"),
-}
-
 body {
-  font-family: AvenirNext;
   font-weight: normal;
   font-size: 30px;
   
@@ -90,7 +72,6 @@ section {
   font-size: 0.63em;
   letter-spacing: 4px;
   text-align: center;
-  color: $body-color;
   @media (max-width: 479.98px) {
     padding: 12px 15px;
   }
@@ -130,8 +111,11 @@ html:not([dir="rtl"]) .sidebar-show .sidebar {
   margin-left: unset;
 }
 
+body[data-sumo-original-overflow-x] {
+  overflow-y: hidden;
+}
+
 .app-header {
-  background-color: $body-bg;
   border-bottom: solid 0.2px #979797;
   box-shadow: 0 4px 13px -3px rgba(0, 0, 0, 0.10196);
   border-bottom: none;
@@ -147,7 +131,6 @@ html:not([dir="rtl"]) .sidebar-show .sidebar {
   
   .navbar-toggler {
     i {
-      color: #d7cc96;
       font-size: 1.5em;
     }
   }
@@ -175,9 +158,11 @@ html:not([dir="rtl"]) .sidebar-show .sidebar {
   padding-top: 1px;
   padding-bottom: 0;
   position: relative;
-  .hero {
-    background-size: cover !important;
-  }
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+
   .navigation, #desktop-nav {
     width: 100%;
     position: absolute;
@@ -190,6 +175,7 @@ html:not([dir="rtl"]) .sidebar-show .sidebar {
       background: unset;
     }
     .nav-bar {
+      display: flex;
       max-width: 1440px;
       padding: 1.3em 0;
       border-bottom: solid 0.2px #979797;
@@ -213,12 +199,8 @@ html:not([dir="rtl"]) .sidebar-show .sidebar {
             font-size: 0.6em;
             font-weight: normal;
             letter-spacing: 0.15em;
-            color: $body-color;
           }
-          .white-theme {
-            color: $body-bg;
-          }
-    
+
           &:hover {
             cursor: pointer;
             .nav-link-span{
@@ -311,10 +293,16 @@ html:not([dir="rtl"]) .sidebar-show .sidebar {
       margin-bottom: 0.8em;
     }
     .title {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      height: 90px;
       font-size: 1em;
+      font-weight: normal;
       letter-spacing: 0.22em;
       text-align: center;
-      margin-bottom: 0.8em;
+      margin-top: 1.5em;
     }
     
     img {
@@ -396,16 +384,21 @@ html:not([dir="rtl"]) .sidebar-show .sidebar {
     position: relative;
     padding: 0 10%;
     .music-item {
-      img {
-        width: 100%;
+      .music-image {
         margin-top: 3em;
         margin-bottom: 1.5em;
-        
+        width: 100%;
+        padding-top: 100%;
         @media (max-width: 479.98px) {
           margin-top: 0;
         }
       }
       .title {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        height: 90px;
         font-size: 1em;
         font-weight: normal;
         letter-spacing: 0.22em;
@@ -433,6 +426,11 @@ html:not([dir="rtl"]) .sidebar-show .sidebar {
     padding: 0 10%;
     .video-item {
       .title {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        height: 90px;
         font-size: 1em;
         font-weight: normal;
         letter-spacing: 0.22em;
@@ -550,27 +548,13 @@ html:not([dir="rtl"]) .sidebar-show .sidebar {
       margin-bottom: 1em;
     }
   }
-  .contact {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0.5em;
-    @media (max-width: 569.98px) {
-      flex-direction: column;
-      // align-items: flex-start;
-    }
-  }
-  .contact-category {
-    width: 100%;
-    font-size: .9em;
-    font-weight: normal;
-    justify-content: flex-end;
-    @media (max-width: 569.98px) {
-      align-items: flex-end;
-      justify-content: center;
+  .band-info {
+    > div {
+      margin-bottom: 1em;
     }
   }
   .email-addr {
+    max-width: 568px;
     width: 100%;
     font-weight: normal;
     margin-left: auto;
@@ -612,11 +596,6 @@ html:not([dir="rtl"]) .sidebar-show .sidebar {
   color: black;
 }
 
-.white-theme {
-  background-color: $body-color !important;
-  color: $body-bg !important;
-}
-
 a {
   text-decoration: none;
   color: inherit;
@@ -624,4 +603,15 @@ a {
     text-decoration: none;
     color: inherit;
   }
+}
+
+.modal-dialog {
+  .modal-content {
+    background-color: #4f4f4f;
+  }
+}
+
+.buy-now {
+  margin-left: 8px;
+  margin-right: 8px;
 }

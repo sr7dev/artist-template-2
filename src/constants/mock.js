@@ -1,29 +1,11 @@
-import merch from "../assets/img/photos/merch.png";
-
 import bandsintown from "../assets/img/icons/bandsintown.svg";
 import facebook from "../assets/img/icons/facebook.svg";
 import instagram from "../assets/img/icons/instagram.svg";
 import music from "../assets/img/icons/music.svg";
 import songkick from "../assets/img/icons/songkick.svg";
-
 import spotify from "../assets/img/icons/spotify.svg";
 import twitter from "../assets/img/icons/twitter.svg";
 import youtube from "../assets/img/icons/youtube.svg";
-
-export const merchItems = [
-  {
-    img: merch,
-    title: "The Mammoths T Shirt",
-    price: "20",
-    url: "https://themammothsmusic.com/merch/t-shirt",
-  },
-  {
-    img: merch,
-    title: "The Mammoths T Shirt",
-    price: "20",
-    url: "https://themammothsmusic.com/merch/t-shirt",
-  },
-];
 
 export const generateSocialItems = socialLinks => {
   const items = [];
@@ -82,6 +64,5 @@ export const generateSocialItems = socialLinks => {
       url: socialLinks["bandsintown.com"],
     });
   }
-  console.log(items);
   return items;
 };
